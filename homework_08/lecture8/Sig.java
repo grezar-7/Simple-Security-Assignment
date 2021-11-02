@@ -1,10 +1,6 @@
 package lecture8;
 
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PublicKey; 
-import java.security.Signature;
+import java.security.*;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
@@ -28,22 +24,40 @@ public class Sig {
 	
 	// geenerate a public/private key pair
 	void initKeyPair() {
-		// TODO
+
+		keyPair = keyGen.generateKeyPair();
 	}
 	
 	// return the string encoding of the public key
 	String getPublicKey() {
-		// TODO
+
+		PublicKey pub = keyPair.getPublic();
+		String pubString = Base64.getEncoder().encodeToString(pub.getEncoded());
+		return pubString;
 	}
 	
 	// return the string encoding of the digital signature of the 'message'
 	String getSignature(String message) throws Exception {
-		// TODO
+
+		PrivateKey privateKey = keyPair.getPrivate();
+		signature.initSign(privateKey);
+		signature.update(message.getBytes());
+		byte[] digitalSignature = signature.sign();
+		String sigMessage = new String(digitalSignature);
+		return sigMessage;
 	}
 
 	// return true if and only if the signature of the 'message' using the 'publicKey' matches the 'signatureString' 
 	boolean verify(String message, String signatureString, String publicKey) throws Exception {
 		// TODO
+		byte[] publicKeyEncoded = Base64.getDecoder().decode(publicKey);
+		X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyEncoded);
+
+		//PublicKey publicKey1 = signature.initVerify(publicKey1);
+
+		signature.update(message.getBytes());
+		boolean verified = signature.verify(publicKeyEncoded);
+		return verified;
 	}
 	
 	public static void main(String[] args) {

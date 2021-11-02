@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import java.security.KeyPairGenerator;
 
-class SigTest {
+public class SigTest {
 @Test
-void testConstructor() throws Exception {
+public void testConstructor() throws Exception {
     Sig sigTest = new Sig(1);
     KeyPairGenerator testKey = sigTest.keyGen;
     String testStringKey = testKey.getAlgorithm();
@@ -14,23 +14,23 @@ void testConstructor() throws Exception {
 }
 
     @Test
-    void initKeyPair() {
+    public void initKeyPair() {
 
     }
 
     @Test
-    void getPublicKey() {
+    public void getPublicKey() {
     }
 
     @Test
-    void getSignature() {
+    public void getSignature() {
     }
 
     @Test
-    void verify() {
+    public void verify() {
     }
 
     @Test
-    void main() {
+    public void main() {
     }
 }
