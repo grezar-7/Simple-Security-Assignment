@@ -14,7 +14,7 @@ public void testConstructor() throws Exception {
 }
 
     @Test
-    public void initKeyPair() {
+    public void testInitKeyPair() {
 
     }
 

@@ -43,7 +43,7 @@ public class Sig {
 		signature.initSign(privateKey);
 		signature.update(message.getBytes());
 		byte[] digitalSignature = signature.sign();
-		String sigMessage = new String(digitalSignature);
+		String sigMessage = Base64.getEncoder().encodeToString(digitalSignature);
 		return sigMessage;
 	}
 
@@ -52,8 +52,8 @@ public class Sig {
 		// TODO
 		byte[] publicKeyEncoded = Base64.getDecoder().decode(publicKey);
 		X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyEncoded);
-
-		//PublicKey publicKey1 = signature.initVerify(publicKey1);
+		PublicKey pub = keyFactory.generatePublic(publicKeySpec);
+		signature.initVerify(pub);
 
 		signature.update(message.getBytes());
 		boolean verified = signature.verify(publicKeyEncoded);
