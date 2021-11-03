@@ -54,9 +54,9 @@ public class Sig {
 		X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyEncoded);
 		PublicKey pub = keyFactory.generatePublic(publicKeySpec);
 		signature.initVerify(pub);
-
+		byte[] signatureStringInByte = Base64.getDecoder().decode(signatureString);
 		signature.update(message.getBytes());
-		boolean verified = signature.verify(publicKeyEncoded);
+		boolean verified = signature.verify(signatureStringInByte);
 		return verified;
 	}
 	
